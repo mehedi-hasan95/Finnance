@@ -4,13 +4,12 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { useNewAccount } from "../hook/new-account-create";
 import { AccountForm } from "./account-form";
 import { insertUserSchema } from "@/db/schema";
 import { z } from "zod";
-import { useCreateAccount } from "../hook/use-create-account";
+import { useCreateAccount } from "../accounts/api/use-create-account";
 
 export const NewAccountSheet = () => {
   const { onClose, isOpen } = useNewAccount();
