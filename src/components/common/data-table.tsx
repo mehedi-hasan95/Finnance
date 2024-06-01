@@ -43,7 +43,7 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [ConfirmDialog, confirm] = UseConfirm(
     "Are you sure?",
-    'Are you sure you want to delete user "Isaac Kwok"?'
+    "Are you sure you want to bulk delete?"
   );
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);

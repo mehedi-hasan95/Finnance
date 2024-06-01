@@ -14,6 +14,7 @@ import { DataTable } from "@/components/common/data-table";
 import { Loader2, Plus } from "lucide-react";
 import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
 import { useBulkDeleteAccount } from "@/features/accounts/api/use-bulk-delete";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Account = () => {
   // Open the sheet
@@ -29,11 +30,21 @@ const Account = () => {
   if (accountQuery.isLoading) {
     return (
       <div className="max-w-screen-2xl mx-auto px-4 -mt-10 md:-mt-16 lg:-mt-20">
-        <div className="flex items-center justify-center">
-          <Card>
-            <Loader2 className="h-4 w-4 animate-spin" />
-          </Card>
-        </div>
+        <Card>
+          <CardHeader>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-5">
+              <CardTitle className="font-bold md:text-2xl">
+                <Skeleton className="w-20 h-8" />
+              </CardTitle>
+              <Skeleton className="w-20 h-8 rounded-full" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-center h-36 md:h-56 lg:h-96">
+              <Loader2 className="h-6 w-6 animate-spin" />
+            </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }

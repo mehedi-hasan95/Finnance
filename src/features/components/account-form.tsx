@@ -71,6 +71,19 @@ export const AccountForm = ({
         <Button type="submit" disabled={disabled}>
           {id ? "Save Change" : "Create Account"}
         </Button>
+
+        <div>
+          {!!id && (
+            <Button
+              type="button"
+              onClick={handleDelete}
+              disabled={disabled}
+              variant={"outline"}
+            >
+              Delete Account
+            </Button>
+          )}
+        </div>
       </form>
     </Form>
   );

@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { client } from "@/lib/hono";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
+import { AccountEditAction } from "./action";
 
 export type ResponseType = InferResponseType<
   typeof client.api.accounts.$get,
@@ -45,5 +46,9 @@ export const columns: ColumnDef<ResponseType>[] = [
         </Button>
       );
     },
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <AccountEditAction id={row.original.id} />,
   },
 ];
