@@ -8,26 +8,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useNewAccount } from "@/features/hook/new-account-create";
 import { columns } from "./_components/columns";
 import { DataTable } from "@/components/common/data-table";
 import { Loader2, Plus } from "lucide-react";
-import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
-import { useBulkDeleteAccount } from "@/features/accounts/api/use-bulk-delete";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useNewCategory } from "@/use-transtack/categories/hook/new-category-create";
+import { useGetCategories } from "@/use-transtack/categories/api/use-get-categories";
+import { useBulkDeleteCategory } from "@/use-transtack/categories/api/use-bulk-delete";
 
-const Account = () => {
+const CategoryPage = () => {
   // Open the sheet
-  const account = useNewAccount();
+  const category = useNewCategory();
 
-  // Fetch all account
-  const accountQuery = useGetAccounts();
-  const data = accountQuery.data || [];
-  const deleteAccounts = useBulkDeleteAccount();
+  // Fetch all category
+  const categoryQuery = useGetCategories();
+  const data = categoryQuery.data || [];
+  const deleteCategories = useBulkDeleteCategory();
   // Disabled the button
-  const isLoading = deleteAccounts.isPending || accountQuery.isLoading;
+  const isLoading = deleteCategories.isPending || categoryQuery.isLoading;
 
-  if (accountQuery.isLoading) {
+  if (categoryQuery.isLoading) {
     return (
       <div className="max-w-screen-2xl mx-auto px-4 -mt-10 md:-mt-16 lg:-mt-20">
         <Card>
@@ -54,9 +54,9 @@ const Account = () => {
         <CardHeader>
           <div className="flex flex-col md:flex-row justify-between items-center gap-5">
             <CardTitle className="font-bold md:text-2xl">
-              Accounts Page
+              Category Page
             </CardTitle>{" "}
-            <Button onClick={account.onOpen} className="w-full md:w-auto">
+            <Button onClick={category.onOpen} className="w-full md:w-auto">
               <Plus className="h-4 w-4 mr-2" />
               Add New
             </Button>
@@ -66,7 +66,7 @@ const Account = () => {
           <DataTable
             onDelete={(row) => {
               const ids = row.map((r) => r.original.id);
-              deleteAccounts.mutate({ ids });
+              deleteCategories.mutate({ ids });
             }}
             disabled={isLoading}
             searchKey="name"
@@ -79,4 +79,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default CategoryPage;

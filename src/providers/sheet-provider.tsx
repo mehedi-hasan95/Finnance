@@ -2,6 +2,8 @@
 
 import { EditAccountSheet } from "@/features/components/edit-account-sheet";
 import { NewAccountSheet } from "@/features/components/new-account-sheet";
+import { EditCategorySheet } from "@/use-transtack/categories/components/edit-category-sheet";
+import { NewCategorySheet } from "@/use-transtack/categories/components/new-account-sheet";
 import { useEffect, useState } from "react";
 
 export const SheetProvider = () => {
@@ -14,6 +16,8 @@ export const SheetProvider = () => {
     <>
       <NewAccountSheet />
       <EditAccountSheet />
+      <NewCategorySheet />
+      <EditCategorySheet />
     </>
   );
 };
