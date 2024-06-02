@@ -72,13 +72,13 @@ export const AccountForm = ({
           {id ? "Save Change" : "Create Account"}
         </Button>
 
-        <div>
+        <div className="!mt-4 p-0">
           {!!id && (
             <Button
               type="button"
               onClick={handleDelete}
               disabled={disabled}
-              variant={"outline"}
+              variant={"destructive"}
             >
               Delete Account
             </Button>

@@ -8,6 +8,13 @@
       "when": 1717007512098,
       "tag": "0000_sparkling_vision",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1717326290682,
+      "tag": "0001_furry_grandmaster",
+      "breakpoints": true
     }
   ]
 }
