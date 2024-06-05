@@ -108,7 +108,7 @@ const app = new Hono()
         .where(and(eq(accounts.userId, auth.userId), eq(accounts.id, id)))
         .returning();
       if (!data) {
-        return c.json({ error: "Data not found" }, 400);
+        return c.json({ error: "Data not found" }, 404);
       }
       return c.json({ data });
     }
@@ -131,7 +131,7 @@ const app = new Hono()
         .where(and(eq(accounts.userId, auth.userId), eq(accounts.id, id)))
         .returning({ id: accounts.id });
       if (!data) {
-        return c.json({ error: "Data not found" }, 400);
+        return c.json({ error: "Data not found" }, 404);
       }
       return c.json({ data });
     }

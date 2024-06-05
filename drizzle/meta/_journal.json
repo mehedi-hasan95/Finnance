@@ -15,6 +15,13 @@
       "when": 1717326290682,
       "tag": "0001_furry_grandmaster",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1717421491311,
+      "tag": "0002_faulty_wraith",
+      "breakpoints": true
     }
   ]
 }

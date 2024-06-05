@@ -1,40 +1,27 @@
 "use client";
-import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { columns } from "./_components/columns";
 import { DataTable } from "@/components/common/data-table";
 import { Loader2, Plus } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useNewCategory } from "@/use-transtack/categories/hook/new-category-create";
-import { useGetCategories } from "@/use-transtack/categories/api/use-get-categories";
-import { useBulkDeleteCategory } from "@/use-transtack/categories/api/use-bulk-delete";
+import { useNewTransaction } from "@/use-transtack/transactions/hook/new-transaction-create";
+import { useGetTransactions } from "@/use-transtack/transactions/api/use-get-transactions";
+import { useBulkDeleteTransactions } from "@/use-transtack/transactions/api/use-bulk-delete-transactions";
 
-const CategoryPage = () => {
+const TransactionsPage = () => {
   // Open the sheet
-  const category = useNewCategory();
+  const transactions = useNewTransaction();
 
-  // Fetch all category
-  const categoryQuery = useGetCategories();
-  const data = categoryQuery.data || [];
-  const deleteCategories = useBulkDeleteCategory();
+  // Fetch all transactions
+  const transactionQuery = useGetTransactions();
+  const data = transactionQuery.data || [];
+  const deleteTransactions = useBulkDeleteTransactions();
 
-  const formatedData = data.map((item) => ({
-    id: item.id,
-    name: item.name,
-    createdAt: format(item.createdAt, "dd-MMM-yyyy"),
-  }));
   // Disabled the button
-  const isLoading = deleteCategories.isPending || categoryQuery.isLoading;
+  const isLoading = deleteTransactions.isPending || transactionQuery.isLoading;
 
-  if (categoryQuery.isLoading) {
+  if (transactionQuery.isLoading) {
     return (
       <div className="max-w-screen-2xl mx-auto px-4 -mt-10 md:-mt-16 lg:-mt-20">
         <Card>
@@ -61,9 +48,9 @@ const CategoryPage = () => {
         <CardHeader>
           <div className="flex flex-col md:flex-row justify-between items-center gap-5">
             <CardTitle className="font-bold md:text-2xl">
-              Category Page
+              Transactions Page
             </CardTitle>{" "}
-            <Button onClick={category.onOpen} className="w-full md:w-auto">
+            <Button onClick={transactions.onOpen} className="w-full md:w-auto">
               <Plus className="h-4 w-4 mr-2" />
               Add New
             </Button>
@@ -73,12 +60,12 @@ const CategoryPage = () => {
           <DataTable
             onDelete={(row) => {
               const ids = row.map((r) => r.original.id);
-              deleteCategories.mutate({ ids });
+              deleteTransactions.mutate({ ids });
             }}
             disabled={isLoading}
             searchKey="name"
             columns={columns}
-            data={formatedData}
+            data={data}
           />
         </CardContent>
       </Card>
@@ -86,4 +73,4 @@ const CategoryPage = () => {
   );
 };
 
-export default CategoryPage;
+export default TransactionsPage;
