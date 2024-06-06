@@ -1,13 +1,13 @@
 import { create } from "zustand";
 
-type EditCategoryState = {
+type EditTransactionState = {
   id?: string;
   isOpen: boolean;
   onOpen: (id: string) => void;
   onClose: () => void;
 };
 
-export const useEditNewCategories = create<EditCategoryState>((set) => ({
+export const useEditNewTransactions = create<EditTransactionState>((set) => ({
   id: undefined,
   isOpen: false,
   onOpen: (id: string) => set({ isOpen: true, id }),

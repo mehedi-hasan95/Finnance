@@ -12,18 +12,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UseConfirm } from "@/hooks/use-confirm";
-import { useEditNewCategories } from "@/use-transtack/categories/hook/edit-create-category";
-import { useDeleteCategory } from "@/use-transtack/categories/api/use-delete-category";
+import { useEditNewTransactions } from "@/use-transtack/transactions/hook/edit-create-transactions";
+import { useDeleteTransactions } from "@/use-transtack/transactions/api/use-delete-transactions";
 type Props = {
   id: string;
 };
-export const CategoryEditAction = ({ id }: Props) => {
-  const { onOpen } = useEditNewCategories();
+export const TransactionEditAction = ({ id }: Props) => {
+  const { onOpen } = useEditNewTransactions();
   const [ConfirmDialog, confirm] = UseConfirm(
-    "Are you delete the category?",
+    "Are you delete the Transaction?",
     "You are about delete this transition."
   );
-  const deleteMuataion = useDeleteCategory(id);
+  const deleteMuataion = useDeleteTransactions(id);
   const handleDelete = async () => {
     const ok = await confirm();
     if (ok) {

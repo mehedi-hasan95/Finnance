@@ -38,7 +38,6 @@ export const DatePicker = ({ disabled, onChange, value }: Props) => {
           mode="single"
           selected={value}
           onSelect={onChange}
-          //   disabled={disabled}
           disabled={((date) => date > new Date()) || disabled}
           initialFocus
         />
