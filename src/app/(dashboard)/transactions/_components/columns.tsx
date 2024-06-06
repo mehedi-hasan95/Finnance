@@ -8,7 +8,7 @@ import { ArrowUpDown } from "lucide-react";
 import { CategoryEditAction } from "./action";
 
 export type ResponseType = InferResponseType<
-  typeof client.api.categories.$get,
+  typeof client.api.transactions.$get,
   200
 >["data"][0];
 
@@ -34,14 +34,14 @@ export const columns: ColumnDef<ResponseType>[] = [
     ),
   },
   {
-    accessorKey: "name",
+    accessorKey: "account_id",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Name
+          AccountID
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
