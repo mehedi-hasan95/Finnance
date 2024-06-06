@@ -36,8 +36,7 @@ const app = new Hono()
       const startDate = from
         ? parse(from, "yyyy-MM-dd", new Date())
         : defaultFrom;
-      const endDate = to ? parse(to, "yyyy-MM-dd", new Date()) : defaultFrom;
-
+      const endDate = to ? parse(to, "yyyy-MM-dd", new Date()) : defaultTo;
       const data = await db
         .select({
           id: transactions.id,
@@ -48,6 +47,7 @@ const app = new Hono()
           account: accounts.name,
           accountId: transactions.accounId,
           date: transactions.date,
+          amount: transactions.amount,
         })
         .from(transactions)
         .innerJoin(accounts, eq(transactions.accounId, accounts.id))
@@ -61,7 +61,6 @@ const app = new Hono()
           )
         )
         .orderBy(desc(transactions.date));
-
       return c.json({ data });
     }
   )
@@ -86,6 +85,7 @@ const app = new Hono()
           notes: transactions.notes,
           accountId: transactions.accounId,
           date: transactions.date,
+          amount: transactions.amount,
         })
         .from(transactions)
         .innerJoin(accounts, eq(transactions.accounId, accounts.id))
