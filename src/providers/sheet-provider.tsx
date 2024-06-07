@@ -4,6 +4,7 @@ import { EditAccountSheet } from "@/features/components/edit-account-sheet";
 import { NewAccountSheet } from "@/features/components/new-account-sheet";
 import { EditCategorySheet } from "@/use-transtack/categories/components/edit-category-sheet";
 import { NewCategorySheet } from "@/use-transtack/categories/components/new-account-sheet";
+import { EditTransactionSheet } from "@/use-transtack/transactions/components/edit-transaction-sheet";
 import { NewTransactionSheet } from "@/use-transtack/transactions/components/new-transaction-sheet";
 import { useEffect, useState } from "react";
 
@@ -20,6 +21,7 @@ export const SheetProvider = () => {
       <NewCategorySheet />
       <EditCategorySheet />
       <NewTransactionSheet />
+      <EditTransactionSheet />
     </>
   );
 };

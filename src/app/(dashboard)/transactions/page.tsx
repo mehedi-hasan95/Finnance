@@ -63,7 +63,7 @@ const TransactionsPage = () => {
               deleteTransactions.mutate({ ids });
             }}
             disabled={isLoading}
-            searchKey="name"
+            searchKey="account"
             columns={columns}
             data={data}
           />

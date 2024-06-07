@@ -26,8 +26,8 @@ const formSchema = z.object({
   payee: z.string(),
   notes: z.string().nullable().optional(),
   date: z.coerce.date(),
-  accounId: z.string(),
-  categorId: z.string().nullable().optional(),
+  accountId: z.string(),
+  categoryId: z.string().nullable().optional(),
 });
 const apiSchema = insertTransactionsSchema.omit({
   id: true,
@@ -98,7 +98,7 @@ export const TransactionForm = ({
         />
         <FormField
           control={form.control}
-          name="accounId"
+          name="accountId"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Account</FormLabel>
@@ -118,7 +118,7 @@ export const TransactionForm = ({
         />
         <FormField
           control={form.control}
-          name="categorId"
+          name="categoryId"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Category</FormLabel>

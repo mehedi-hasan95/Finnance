@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import accounts from "./account";
 import categories from "./categories";
+import summery from "./summery";
 import transactions from "./transactions";
 
 export const runtime = "edge";
@@ -9,6 +10,7 @@ export const runtime = "edge";
 const app = new Hono().basePath("/api");
 
 const routes = app
+  .route("/summery", summery)
   .route("/accounts", accounts)
   .route("/categories", categories)
   .route("/transactions", transactions);

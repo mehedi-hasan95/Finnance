@@ -41,20 +41,20 @@ const app = new Hono()
         .select({
           id: transactions.id,
           category: categories.name,
-          categoryId: transactions.categorId,
+          categoryId: transactions.categoryId,
           payee: transactions.payee,
           notes: transactions.notes,
           account: accounts.name,
-          accountId: transactions.accounId,
+          accountId: transactions.accountId,
           date: transactions.date,
           amount: transactions.amount,
         })
         .from(transactions)
-        .innerJoin(accounts, eq(transactions.accounId, accounts.id))
-        .leftJoin(categories, eq(transactions.categorId, categories.id))
+        .innerJoin(accounts, eq(transactions.accountId, accounts.id))
+        .leftJoin(categories, eq(transactions.categoryId, categories.id))
         .where(
           and(
-            accountId ? eq(transactions.accounId, accountId) : undefined,
+            accountId ? eq(transactions.accountId, accountId) : undefined,
             eq(accounts.userId, auth.userId),
             gte(transactions.date, startDate),
             lte(transactions.date, endDate)
@@ -80,15 +80,15 @@ const app = new Hono()
       const [data] = await db
         .select({
           id: transactions.id,
-          categoryId: transactions.categorId,
+          categoryId: transactions.categoryId,
           payee: transactions.payee,
           notes: transactions.notes,
-          accountId: transactions.accounId,
+          accountId: transactions.accountId,
           date: transactions.date,
           amount: transactions.amount,
         })
         .from(transactions)
-        .innerJoin(accounts, eq(transactions.accounId, accounts.id))
+        .innerJoin(accounts, eq(transactions.accountId, accounts.id))
         .where(and(eq(transactions.id, id), eq(accounts.userId, auth.userId)));
       if (!data) {
         return c.json({ error: "Not found" }, 404);
@@ -154,7 +154,7 @@ const app = new Hono()
         db
           .select({ id: transactions.id })
           .from(transactions)
-          .innerJoin(accounts, eq(transactions.accounId, accounts.id))
+          .innerJoin(accounts, eq(transactions.accountId, accounts.id))
           .where(
             and(
               inArray(transactions.id, values.ids),
@@ -196,7 +196,7 @@ const app = new Hono()
         db
           .select({ id: transactions.id })
           .from(transactions)
-          .innerJoin(accounts, eq(transactions.accounId, accounts.id))
+          .innerJoin(accounts, eq(transactions.accountId, accounts.id))
           .where(and(eq(transactions.id, id), eq(accounts.userId, auth.userId)))
       );
       const [data] = await db
@@ -230,7 +230,7 @@ const app = new Hono()
         db
           .select({ id: transactions.id })
           .from(transactions)
-          .innerJoin(accounts, eq(transactions.accounId, accounts.id))
+          .innerJoin(accounts, eq(transactions.accountId, accounts.id))
           .where(and(eq(transactions.id, id), eq(accounts.userId, auth.userId)))
       );
       const [data] = await db

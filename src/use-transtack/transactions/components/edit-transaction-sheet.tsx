@@ -5,40 +5,80 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { insertUserSchema } from "@/db/schema";
+import { insertTransactionsSchema, insertUserSchema } from "@/db/schema";
 import { z } from "zod";
-import { useEditNewCategories } from "../hook/edit-create-category";
 import { Loader2 } from "lucide-react";
 import { UseConfirm } from "@/hooks/use-confirm";
 import { useUpdateTransactions } from "../api/use-update-transactions";
 import { useGetSingleTransactions } from "../api/use-get-single-transactions";
-import { useDeleteCategory } from "../api/use-delete-transactions";
 import { TransactionForm } from "./transaction-form";
+import { useEditNewTransactions } from "../hook/edit-create-transactions";
+import { useDeleteTransactions } from "../api/use-delete-transactions";
+import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
+import { useCreateAccount } from "@/features/accounts/api/use-create-account";
+import { useGetCategories } from "@/use-transtack/categories/api/use-get-categories";
+import { useCreateCategory } from "@/use-transtack/categories/api/use-create-category";
 
 export const EditTransactionSheet = () => {
-  const { onClose, isOpen, id } = useEditNewCategories();
+  const { onClose, isOpen, id } = useEditNewTransactions();
 
   // Update Category
-  const updateCategory = useUpdateTransactions(id);
+  const updateTransaction = useUpdateTransactions(id);
   // Fetch the single Category
-  const categoryQuery = useGetSingleTransactions(id);
+  const getTransaction = useGetSingleTransactions(id);
   // Delete a Category
-  const deleteQuery = useDeleteCategory(id);
-  const formSchema = insertUserSchema.pick({
-    name: true,
+  const deleteTransaction = useDeleteTransactions(id);
+
+  // Test
+  // Account
+  const getAccounts = useGetAccounts();
+  const createAccount = useCreateAccount();
+  const onCreateAccount = (name: string) => createAccount.mutate({ name });
+  const accountOptions = (getAccounts.data ?? []).map((account) => ({
+    label: account.name,
+    value: account.id,
+  }));
+  // Category
+  const getCategoryies = useGetCategories();
+  const createCategories = useCreateCategory();
+  const onCreateCategories = (name: string) =>
+    createCategories.mutate({ name });
+  const categoriesOptions = (getCategoryies.data ?? []).map((category) => ({
+    label: category.name,
+    value: category.id,
+  }));
+  // Test
+  const formSchema = insertTransactionsSchema.omit({
+    id: true,
   });
   type FormValues = z.input<typeof formSchema>;
   const onSubmit = (values: FormValues) => {
-    updateCategory.mutate(values, {
+    updateTransaction.mutate(values, {
       onSuccess: () => {
         onClose();
       },
     });
   };
 
-  const defaultValues = categoryQuery.data
-    ? { name: categoryQuery.data.name }
-    : { name: "" };
+  const defaultValues = getTransaction.data
+    ? {
+        accountId: getTransaction.data.accountId,
+        payee: getTransaction.data.payee,
+        amount: getTransaction.data.amount.toString(),
+        date: getTransaction.data.date
+          ? new Date(getTransaction.data.date)
+          : new Date(),
+        categoryId: getTransaction.data.categoryId,
+        notes: getTransaction.data.notes,
+      }
+    : {
+        accountId: "",
+        payee: "",
+        amount: "",
+        date: new Date(),
+        categoryId: "",
+        notes: "",
+      };
 
   // Delete modal
   const [ConfirmDialog, confirm] = UseConfirm(
@@ -48,15 +88,18 @@ export const EditTransactionSheet = () => {
   const onDelete = async () => {
     const ok = await confirm();
     if (ok) {
-      deleteQuery.mutate(undefined, {
+      deleteTransaction.mutate(undefined, {
         onSuccess: () => {
           onClose();
         },
       });
     }
   };
-
-  const isLoading = categoryQuery.isLoading;
+  const disabled =
+    createAccount.isPending ||
+    createCategories.isPending ||
+    getTransaction.isPending;
+  const isLoading = getTransaction.isLoading;
   return (
     <>
       <ConfirmDialog />
@@ -73,10 +116,14 @@ export const EditTransactionSheet = () => {
           ) : (
             <TransactionForm
               id={id}
-              onSubmint={onSubmit}
               onDelete={onDelete}
-              disabled={updateCategory.isPending || deleteQuery.isPending}
               defaultValues={defaultValues}
+              onSubmint={onSubmit}
+              disabled={disabled}
+              onCreateCategories={onCreateCategories}
+              categoriesOptions={categoriesOptions}
+              onCreateAccount={onCreateAccount}
+              accountOptions={accountOptions}
             />
           )}
         </SheetContent>
