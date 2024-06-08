@@ -192,7 +192,7 @@ export const TransactionForm = ({
         />
 
         <Button type="submit" disabled={disabled}>
-          {id ? "Save Change" : "Create Cagegory"}
+          {id ? "Save Change" : "Create Transaction"}
         </Button>
 
         <div className="!mt-4 p-0">
@@ -203,7 +203,7 @@ export const TransactionForm = ({
               disabled={disabled}
               variant={"destructive"}
             >
-              Delete Cagegory
+              Delete Transaction
             </Button>
           )}
         </div>

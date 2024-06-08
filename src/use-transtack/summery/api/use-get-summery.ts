@@ -19,14 +19,15 @@ export const useGetSummery = () => {
         throw new Error("Failed to fetch summery");
       }
       const { data } = await response.json();
+      console.log("summery:", data);
       return {
         ...data,
         remainingAmount: convertAmountFromMiliunits(data.remainingAmount),
-        remainingChange: convertAmountFromMiliunits(data.remainingChange),
+        remainingChange: data.remainingChange,
         incomeAmount: convertAmountFromMiliunits(data.incomeAmount),
-        incomeChange: convertAmountFromMiliunits(data.incomeChange),
+        incomeChange: data.incomeChange,
         expensesAmount: convertAmountFromMiliunits(data.expensesAmount),
-        expensesChange: convertAmountFromMiliunits(data.expensesChange),
+        expensesChange: data.expensesChange,
         categories: data.categories.map((category) => ({
           ...category,
           value: convertAmountFromMiliunits(category.value),

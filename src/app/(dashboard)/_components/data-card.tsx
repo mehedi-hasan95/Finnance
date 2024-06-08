@@ -9,6 +9,7 @@ import { cn, formatCurrency, formatPercentage } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import { LucideIcon } from "lucide-react";
 import { CountUp } from "./count-up";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const boxVariant = cva("shrink-0 rounded-md p-3", {
   variants: {
@@ -26,10 +27,10 @@ const boxVariant = cva("shrink-0 rounded-md p-3", {
 const iconVariant = cva("size-6", {
   variants: {
     variant: {
-      default: "fill-blue-500",
-      success: "fill-emerald-500",
-      danger: "fill-rose-500",
-      warning: "fill-yellow-500",
+      default: "text-blue-500",
+      success: "text-emerald-500",
+      danger: "text-rose-500",
+      warning: "text-yellow-500",
     },
   },
   defaultVariants: {
@@ -77,6 +78,7 @@ export const DataCard = ({
             decimals={2}
             decimalPlaces={2}
             formattingFn={formatCurrency}
+            duration={1}
           />
         </h1>
         <p
@@ -86,8 +88,27 @@ export const DataCard = ({
             percentageChange < 0 && "text-rose-500"
           )}
         >
-          {formatPercentage(percentageChange)} from last period
+          {formatPercentage(percentageChange, { addPrefix: true })} from last
+          period
         </p>
+      </CardContent>
+    </Card>
+  );
+};
+
+export const DataCardLoading = () => {
+  return (
+    <Card className="border-none drop-shadow-sm h-48">
+      <CardHeader className="flex flex-row items-center justify-between gap-x-4">
+        <div className="space-y-2">
+          <Skeleton className="h-6 w-24" />
+          <Skeleton className="h-4 w-40" />
+        </div>
+        <Skeleton className="size-12" />
+      </CardHeader>
+      <CardContent>
+        <Skeleton className="shrink-0 h-10 w-24 mb-2" />
+        <Skeleton className="shrink-0 h-4 w-40" />
       </CardContent>
     </Card>
   );
