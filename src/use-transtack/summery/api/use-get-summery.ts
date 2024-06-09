@@ -19,7 +19,6 @@ export const useGetSummery = () => {
         throw new Error("Failed to fetch summery");
       }
       const { data } = await response.json();
-      console.log("summery:", data);
       return {
         ...data,
         remainingAmount: convertAmountFromMiliunits(data.remainingAmount),

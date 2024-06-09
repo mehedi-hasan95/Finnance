@@ -65,10 +65,10 @@ export const AmmountInput = ({
         onValueChange={onChange}
         disabled={disabled}
       />
-      <p className="text-xs text-muted-foreground pt-2">
+      <span className="text-xs text-muted-foreground pt-2">
         {isIncome && <p>This will count as income</p>}
         {isExpense && <p>This will count as expense</p>}
-      </p>
+      </span>
     </div>
   );
 };

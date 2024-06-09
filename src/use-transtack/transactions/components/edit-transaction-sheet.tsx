@@ -107,7 +107,7 @@ export const EditTransactionSheet = () => {
         <SheetContent>
           <SheetHeader>
             <SheetTitle>Are you absolutely sure?</SheetTitle>
-            <SheetDescription>Edit your existing category</SheetDescription>
+            <SheetDescription>Edit your existing Transaction</SheetDescription>
           </SheetHeader>
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
