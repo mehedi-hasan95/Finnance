@@ -1,6 +1,7 @@
 import { UserButton } from "@clerk/nextjs";
 import { Logo } from "./logo";
 import { Navigation } from "./navigation";
+import { Filter } from "@/app/(dashboard)/_components/filter/filter";
 
 export const Header = async () => {
   return (
@@ -15,12 +16,13 @@ export const Header = async () => {
             <UserButton afterSignOutUrl="/" />
           </div>
         </div>
-        <div className="space-y-2 pt-5 md:pt-7 lg:pt-10">
+        <div className="space-y-2 pt-5 md:pt-7 lg:pt-10 pb-5">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Wellcome Back
           </h2>
           <p className="text-[#85B7FF]">This is your finincial report</p>
         </div>
+        <Filter />
       </div>
     </div>
   );
