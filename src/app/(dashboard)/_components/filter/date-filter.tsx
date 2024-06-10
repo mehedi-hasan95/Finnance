@@ -58,13 +58,15 @@ export const DateFilter = () => {
       </PopoverTrigger>
       <PopoverContent className="lg:w-auto w-full p-0" align="start">
         <Calendar
-          disabled={false}
           initialFocus
           mode="range"
           defaultMonth={date?.from}
           selected={date}
           onSelect={setDate}
           numberOfMonths={2}
+          disabled={(date) =>
+            date > new Date() || date < new Date("1900-01-01")
+          }
         />
         <div className="p-4 w-full flex items-center gap-x-2">
           <PopoverClose asChild>
